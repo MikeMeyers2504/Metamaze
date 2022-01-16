@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { TabContext } from './TabSwitcher'
-import { secondary } from '../utils'
+import { TabContext, Variant } from '.'
 
 const Header = ({ children }: { children: JSX.Element[] }) => {
     const context = useContext(TabContext)
@@ -11,7 +10,7 @@ const Header = ({ children }: { children: JSX.Element[] }) => {
 
 export default Header
 
-const Wrapper = styled.div<{ variant: string }>`
+const Wrapper = styled.div<{ variant: Variant }>`
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -19,7 +18,7 @@ const Wrapper = styled.div<{ variant: string }>`
     line-height: 1.5em;
 
     ${(p) =>
-        p.variant === secondary &&
+        p.variant === 'secondary' &&
         css`
             background-color: dodgerblue;
         `}

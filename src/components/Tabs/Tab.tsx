@@ -1,35 +1,35 @@
 import React, { useContext } from 'react'
-import styled, { css } from 'styled-components'
-import { TabContext } from './TabSwitcher'
-import { primary, secondary } from '../utils'
+import styled, { css, StyledComponent } from 'styled-components'
+import { TabContext, Variant } from '.'
 
 const Tab = ({ id, children }: { id: string; children: JSX.Element }) => {
     const context = useContext(TabContext)
 
-    return (
-        <HeaderWrapper
-            onClick={() => context.setActiveTabID(id)}
-            variant={context.variant}
-            active={context.activeTabID === id}
-        >
-            {children}
-        </HeaderWrapper>
+    return React.createElement(
+        variants[context.variant],
+        {
+            onClick: () => context.setActiveTabId(id),
+            variant: context.variant,
+            active: context.activeTabId === id,
+        },
+        children
     )
 }
 
 export default Tab
 
-const HeaderWrapper = styled.div<{ variant: string; active: boolean }>`
+const BaseHeader = styled.div<{ variant: Variant; active: boolean }>`
     display: flex;
     flex-direction: row;
     flex-grow: 1;
     flex-basis: 0;
     justify-content: center;
     cursor: pointer;
+`
 
+const PrimaryHeader = styled(BaseHeader)`
     ${(p) =>
         p.active &&
-        p.variant === primary &&
         css`
             color: blue;
             border-radius: 10px 10px 0px 0px;
@@ -38,21 +38,23 @@ const HeaderWrapper = styled.div<{ variant: string; active: boolean }>`
             border-bottom: transparent;
             font-weight: bold;
         `}
+`
 
-    ${(p) =>
-        p.variant === secondary &&
-        css`
-            color: rgb(173, 216, 230);
-            margin-bottom: 10px;
-            border-bottom: 2px solid rgb(173, 216, 230, 0.3);
-        `}
+const SecondaryHeader = styled(BaseHeader)`
+    color: rgb(173, 216, 230);
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgb(173, 216, 230, 0.3);
 
     ${(p) =>
         p.active &&
-        p.variant === secondary &&
         css`
             color: white;
             border-bottom: 2px solid white;
             font-weight: bold;
         `}
 `
+
+const variants: { [key in Variant]: StyledComponent<any, any, any> } = {
+    primary: PrimaryHeader,
+    secondary: SecondaryHeader,
+}
