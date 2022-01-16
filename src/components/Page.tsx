@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 
-const Page: FC<{ content: string }> = (props) => {
-    return <Wrapper>{props.content}</Wrapper>
-}
+const Page: FC<{ content: JSX.Element }> = ({ content }) => <Wrapper>{content}</Wrapper>
 
 export default Page
 
