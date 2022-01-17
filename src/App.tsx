@@ -8,7 +8,7 @@ import Header from './components/Tabs/Header'
 
 const App = () => (
     <div className="App">
-        <Tabs defaultTab="0" variant="secondary">
+        <Tabs defaultTab="0" variant="primary">
             <Header>
                 <Tab id="0">
                     <Title>Train</Title>
